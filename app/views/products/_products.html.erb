@@ -3,15 +3,15 @@
     <% slice.each do |product| %>
       <div class='col-md-4 mb-4'>
         <div class='img-thumbnail'>
-          <%= link_to product_path(1) do %>
-            <%= image_tag Faker::Placeholdit.image('640x480', 'jpg','cccccc'), class:'img-fluid'%>
+          <%= link_to product_path(product) do %>
+            <%= image_tag product.photo.url, class:'img-fluid'%>
           <% end %>
           <div class='p-3'>
             <h3>
-              <%= link_to Faker::Hacker.noun.titleize, product_path(1) %>
+              <%= link_to product.name, product %>
             </h3>
-            <p><%= simple_format(truncate(Faker::Hacker.say_something_smart, length: 90))%></p>
-            <p class='lead'><%= number_to_currency Faker::Number.decimal(2,2)%></p>
+            <p><%= simple_format(truncate(product.description, length: 90))%></p>
+            <p class='lead'><%= number_to_currency product.price %></p>
             <p>
             <%= link_to '#', class:'btn btn-primary' do %>
               <span class="fa fa-cart-arrow-down"></span> Dodaj do koszyka
