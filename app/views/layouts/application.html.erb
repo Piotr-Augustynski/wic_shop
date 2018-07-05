@@ -31,7 +31,7 @@
           <h3>Kategorie</h3>
           <ul class="nav nav-sidebar flex-column">
             <% Category.all.each do |category| %>
-              <li class="nav-item">
+              <li class="nav-item <% if @category == category %>active<% end %>"  >
                 <%= link_to category.name, category_path(category), class: "nav-link" %>
               </li>
             <% end %>

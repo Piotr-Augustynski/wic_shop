@@ -13,3 +13,15 @@
  *= require font-awesome
  */
  @import "bootstrap";
+ 
+ .nav-sidebar {
+   .nav-item {
+
+     &.active {
+       a.nav-link, a.nav-link:hover, a.nav-link:focus {
+         color: #fff;
+         background-color: #428bca;
+       }
+     }
+   }
+ }
