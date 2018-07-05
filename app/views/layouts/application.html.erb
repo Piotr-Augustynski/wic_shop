@@ -30,9 +30,9 @@
         <div class="col-md-2">
           <h3>Kategorie</h3>
           <ul class="nav nav-sidebar flex-column">
-            <% (1..9).each do |category| %>
+            <% Category.all.each do |category| %>
               <li class="nav-item">
-                <%= link_to "Kategoria #{category}", category_path(category), class: "nav-link" %>
+                <%= link_to category.name, category_path(category), class: "nav-link" %>
               </li>
             <% end %>
           </ul>
