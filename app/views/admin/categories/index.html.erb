@@ -6,6 +6,12 @@
         <span class="fa fa-plus"></span> Dodaj nową kategorię
       <% end %>
     </div>
+    <div class="search-form col-md-3">
+      <%= search_form_for [:admin, @q] do |f| %>
+        <%= f.text_field :name_cont, placeholder: "Szukaj tekstu", class: "form-control mb-2" %>
+        <%= f.submit "Szukaj", class: "btn btn-info" %>
+      <% end %>
+    </div>
   </div>
 </div>
 <table class="table mt-5">

@@ -1,19 +1,27 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-5">
-      <h1>Produkty</h1>
+    <div class="col-md-3">
+      <h2>Produkty</h2>
       <%= link_to new_admin_product_path, class: "btn btn-success mt-3" do %>
         <span class="fa fa-plus"></span> Dodaj nowy produkt
       <% end %>
     </div>
+    <div class="search-form col-md-3">
+      <%= search_form_for [:admin, @q] do |f| %>
+        <%= f.text_field :name_or_description_or_long_description_cont, placeholder: "Szukaj tekstu", class: "form-control mb-2" %>
+        <%= f.text_field :price_gt, placeholder: "Cena", class: "form-control mb-3" %>
+        <%= f.submit "Szukaj", class: "btn btn-info" %>
+      <% end %>
+    </div>
   </div>
 </div>
+
   <table class="table mt-5">
     <thead>
       <tr>
-        <th>Nazwa</th>
-        <th>Cena</th>
-        <th>Kategoria</th>
+        <th><%= sort_link(@q, :name, 'Nazwa')%></th>
+        <th><%= sort_link(@q, :price, 'Cena')%></th>
+        <th><%= sort_link(@q, :category, 'Kategoria')%></th>
         <th></th>
       </tr>
     </thead>
