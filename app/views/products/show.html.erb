@@ -6,7 +6,7 @@
       <%= simple_format( @product.long_description ) %>
       <p class='lead'><%= number_to_currency(@product.price) %></p>
       <p>
-        <%= link_to '#', class: 'btn btn-primary' do %>
+        <%= link_to add_product_cart_path(product_id: @product.id), method: :post,  class: 'btn btn-primary' do %>
         <span class="fa fa-cart-arrow-down"></span> Dodaj do koszyka
         <% end %>
       </p>

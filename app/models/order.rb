@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   include Statesman::Adapters::ActiveRecordQueries
+  
   belongs_to :shipping_type
   has_many :line_items
   has_many :transitions, class_name: 'OrderTransition', autosave: false
@@ -9,7 +10,7 @@ class Order < ApplicationRecord
 
   def state_machine
     @state_machine ||= OrderStateMachine.new(self, transition_class: OrderTransition,
-                                              association_name: :transitions)
+                                             association_name: :transitions)
   end
 
   def full_cost

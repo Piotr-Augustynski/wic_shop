@@ -22,6 +22,14 @@
           <li class="nav-item <% if [params[:controller], params[:action]] == ['static', 'shipping'] %>active<% end %>"  ><%= link_to 'Dostawa i płatności', shipping_path, class: "nav-link" %></li>
           <li class="nav-item <% if [params[:controller], params[:action]] == ['static', 'about'] %>active<% end %>"  ><%= link_to 'O sklepie', about_path, class: "nav-link" %></li>
         </ul>
+        <span class="navbar-text">
+          <%= link_to cart_path do %>
+            <span class="fa fa-shopping-cart"></span>
+            <%= current_cart.line_items.map { |e| e.quantity}.sum %>
+            produktów za
+            <%= number_to_currency(current_cart.line_items.map { |e| e.full_price }.sum) %>
+          <% end %>
+        </span>
       </div>
     </nav>
 

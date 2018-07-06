@@ -7,11 +7,10 @@ class OrderStateMachine
   state :shipped
   state :cancelled
 
-
   transition from: :new, to: [:confirmed, :cancelled]
   transition from: :confirmed, to: [:in_progress, :cancelled]
-  transition from: :in_progress, to: [:shipped, :cancelled]
-  transition from: :shipped, to: [:cancelled]
+  transition from: :in_progress, to: [:shipped, :failed]
+  transition from: :shipped, to: :cancelled
 
 
   after_transition(to: :cancelled) do |order, transition|
@@ -40,5 +39,4 @@ class OrderStateMachine
 
     }
   end
-
 end
