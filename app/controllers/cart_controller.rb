@@ -31,7 +31,6 @@ class CartController < ApplicationController
   end
 
   def add_product
-    binding.pry
     order = current_cart_or_create
     product = Product.find(params[:product_id])
     if item = order.line_items.where(product: product).first
