@@ -9,7 +9,7 @@ class OrderStateMachine
 
   transition from: :new, to: [:confirmed, :cancelled]
   transition from: :confirmed, to: [:in_progress, :cancelled]
-  transition from: :in_progress, to: [:shipped, :failed]
+  transition from: :in_progress, to: [:shipped, :cancelled]
   transition from: :shipped, to: :cancelled
 
 

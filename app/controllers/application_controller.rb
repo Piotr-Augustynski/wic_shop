@@ -12,8 +12,9 @@ class ApplicationController < ActionController::Base
 
   def current_cart_or_create
     c = current_cart
+
     if c.new_record?
-      c[:shipping_type_id] = 1
+      c[:shipping_type_id] = 3
       c.save
       session[:order_id] = c.id
     end

@@ -1,10 +1,12 @@
 class Order < ApplicationRecord
   include Statesman::Adapters::ActiveRecordQueries
-  
+
   belongs_to :shipping_type
   has_many :line_items
   has_many :transitions, class_name: 'OrderTransition', autosave: false
-  has_one :address
+  has_one :address, dependent: :destroy
+
+  accepts_nested_attributes_for :address
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state, to: :state_machine
 
