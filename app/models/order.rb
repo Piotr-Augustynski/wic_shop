@@ -12,18 +12,18 @@ class Order < ApplicationRecord
 
   def state_machine
     @state_machine ||= OrderStateMachine.new(self, transition_class: OrderTransition,
-                                             association_name: :transitions)
+                                                   association_name: :transitions)
   end
 
   def full_cost
     line_items.map { |e| e.full_price }.sum + shipping_cost
   end
 
-  def self.transition_state
+  def self.transition_class
     OrderTransition
   end
 
-  def self.initial_class
+  def self.initial_state
     OrderStateMachine.initial_state
   end
 

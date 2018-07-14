@@ -1,0 +1,74 @@
+<h3> Szczegóły zamówienia </h3>
+
+<div class="row">
+  <div class="col-md-6">
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th>Produkt</th>
+          <th>Liczba sztuk</th>
+          <th>Cena jednostkowa</th>
+          <th>Cena całkowita</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @order.line_items.each do |line_item| %>
+          <tr>
+            <td><%= link_to line_item.item_name, product_path(line_item.product) %></td>
+            <td><%= line_item.quantity %></td>
+            <td><%= number_to_currency line_item.unit_price %></td>
+            <td><%= number_to_currency line_item.full_price %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>Dostawa: <%= @order.shipping_type.name %></td>
+          <td></td>
+          <td colspan="2"><%= number_to_currency @order.shipping_cost %></td>
+        </tr>
+        <tr>
+          <td colspan="4"><hr/></td>
+        </tr>
+        <tr>
+          <td>Całość:</td>
+          <td></td>
+          <td colspan="2"><%= number_to_currency @order.full_cost %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <address class="address mt-5">
+      <%= @order.address.first_name %> <%= @order.address.last_name %>
+      </br>
+      <%= @order.address.street %>
+      </br>
+      <%= @order.address.zip_code %> <%= @order.address.city %>
+      <%= simple_format @order.comment %>
+    </address>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for [:admin, @order ] do |f| %>
+      <div class="form-row">
+        <div class="col-auto">
+          <select class="form-control" name="state">
+            <% OrderStateMachine.states_map.each do |state_name, human_name| %>
+              <option value="<%= state_name %>"
+                <% if !@order.can_transition_to?(state_name) && @order.current_state != state_name %>
+                  disabled="disabled"
+                <% end %> >
+
+                <%= human_name %>
+              </option>
+            <% end %>
+          </select>
+        </div>
+        <div class="col-auto">
+          <%= f.submit "Zmień stan", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
